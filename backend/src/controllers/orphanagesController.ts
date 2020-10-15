@@ -1,18 +1,23 @@
 import {Request, Response} from 'express'
 import {getRepository} from 'typeorm'
 import Orphanage from '../models/orphanage'
+import OrphanageView from '../views/orphanage_view'
 
 export default {
   async index(request:Request, response:Response){
     const orphanagesRepository = getRepository(Orphanage);
-    const orphanages = await orphanagesRepository.find();
-    return response.json(orphanages);
+    const orphanages = await orphanagesRepository.find({
+      relations: ['images']
+    });
+    return response.json(OrphanageView.renderMany(orphanages));
   },
   async show(request:Request, response:Response){
     const { id } = request.params
     const orphanagesRepository = getRepository(Orphanage);
-    const orphanage = await orphanagesRepository.findOneOrFail(id);
-    return response.json(orphanage);
+    const orphanage = await orphanagesRepository.findOneOrFail(id,{
+      relations: ['images']
+    });
+    return response.json(OrphanageView.render(orphanage));
   },
   async create(request:Request, response:Response){
     const {
@@ -26,6 +31,13 @@ export default {
     } = request.body
 
     const orphanagesRepository = getRepository(Orphanage);
+
+    const requestImages = request.files as Express.Multer.File[];
+
+    const images = requestImages.map(image => {
+      return { path:image.filename }
+    })
+
     const orphanage = orphanagesRepository.create({
       name,
       latitude,
@@ -34,6 +46,7 @@ export default {
       instructions,
       opening_hours,
       open_on_weekends,
+      images,
     })
 
     await orphanagesRepository.save(orphanage);
