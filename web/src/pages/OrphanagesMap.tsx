@@ -1,12 +1,28 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import LogoMapMarker from '../images/map-marker.svg'
 import {Link} from 'react-router-dom'
 import {FiPlus,FiArrowRight} from 'react-icons/fi'
 import '../styles/pages/orphanages-map.css'
 import {Map,TileLayer,Marker,Popup} from 'react-leaflet'
 import MapIcon from '../utils/mapIcon'
+import api from '../services/api'
+
+interface Orphanage{
+  id:number;
+  latitude:number;
+  longitude:number;
+  name:string;
+}
 
 function OrphanagesMap(){
+  const [orphanages,setOrphanages] = useState<Orphanage[]>([]);
+
+  console.log(orphanages);
+  useEffect(() => {
+    api.get('orphanages').then(response => {
+      setOrphanages(response.data)
+    })
+  },[])
   return(
     <div id="page-map">
       <aside>
@@ -30,18 +46,23 @@ function OrphanagesMap(){
       <TileLayer
         url="https://a.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker
-        icon={MapIcon}
-        position={[-11.3082368,-41.8545664]}
-      >
-        <Popup closeButton={false} maxWidth={240} minWidth={240} className="map-popup">
-          Lar das Meninas
-          <Link to="/orphanages/1">
-            <FiArrowRight size={25} color="#FFF"/>
-          </Link>
-        </Popup>
-      </Marker>
-    </Map>
+      {orphanages.map(orphanage => {
+        return(
+          <Marker
+            icon={MapIcon}
+            position={[orphanage.latitude,orphanage.longitude]}
+            key={orphanage.id}
+          >
+            <Popup closeButton={false} maxWidth={240} minWidth={240} className="map-popup">
+              {orphanage.name}
+              <Link to={`/orphanages/${orphanage.id}`}>
+                <FiArrowRight size={25} color="#FFF"/>
+              </Link>
+            </Popup>
+          </Marker>
+        )
+      })}
+      </Map>
 
       <Link to="/orphanages/create" className="create-orphanage">
         <FiPlus size={32} color="FFF" />
