@@ -41,7 +41,7 @@ export default function Orphanage() {
     })
   },[params.id])
   if(!orphanage){
-    return <p>Cargando ... </p>
+    return <p>Carregando ... </p>
   }
   return (
     <div id="page-orphanage">
@@ -89,7 +89,7 @@ export default function Orphanage() {
                 doubleClickZoom={false}
               >
                 <TileLayer
-                  url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
+                  url="https://a.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
               <Marker interactive={false} icon={MapIcon} position={[orphanage.latitude,orphanage.longitude]} />
               </Map>
