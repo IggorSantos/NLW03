@@ -1,5 +1,9 @@
 # Happy
 
+<p align="center">
+  <img alt="Logo do projeto" src="./web/src/images/Logo.svg" />
+</p>
+
 Aplicação feita durante o Next Level Week oferecido pela RocketSeat </br>
 
 # SOBRE</br>
