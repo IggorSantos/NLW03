@@ -8,10 +8,10 @@ A aplicação em questão é o Happy.Ela visa auxiiar pessoas que queiram visita
 localidade e também cadastrar um novo orfanato. 
 
 # TECNOLOGIAS UTILIZADAS</br>
-##Front-end
+## Front-end
 
 -React </br>
 -Typescript
 
-##Back-end:
+## Back-end:
 -Node JS </br>
