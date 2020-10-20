@@ -1,4 +1,5 @@
-# NLW03
+# Happy
+
 Aplicação feita durante o Next Level Week oferecido pela RocketSeat </br>
 
 ## SOBRE</br>
