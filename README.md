@@ -10,9 +10,9 @@ localidade e também cadastrar um novo orfanato.
 # PRINCIPAIS TECNOLOGIAS UTILIZADAS</br>
 ## Front-end
 
--React </br>
--Typescript
+- React </br>
+- Typescript
 
 ## Back-end:
--Node JS </br>
--Axios </br>
+- Node JS </br>
+- Axios </br>
